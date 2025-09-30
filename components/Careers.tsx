@@ -32,10 +32,10 @@ export const Careers: React.FC = () => {
                         Get in Touch
                     </h2>
                     <p className="mb-6 max-w-2xl mx-auto">
-                        If you're excited by what we're building at Paisabridge and think you could make a great contribution, please send your resume and a brief note about yourself to our team. We'll keep your information on file and reach out when a suitable role opens up.
+                        If you're excited by what we're building at NestSaver and think you could make a great contribution, please send your resume and a brief note about yourself to our team. We'll keep your information on file and reach out when a suitable role opens up.
                     </p>
                     <a 
-                        href="mailto:careers@paisabridge.com?subject=Spontaneous Application"
+                        href="mailto:careers@nestsaver.com?subject=Spontaneous Application"
                         className="inline-flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-full transition-colors text-lg"
                     >
                         <PaperAirplaneIcon className="w-5 h-5 mr-3" />

@@ -1,41 +1,15 @@
-
-import React, { useState, useRef, useEffect } from 'react';
-// FIX: Changed import to use scoped @firebase/auth package
-import { User } from '@firebase/auth';
-import { ChartBarIcon, UserCircleIcon, ShieldCheckIcon, ChevronDownIcon, SunIcon, MoonIcon, InformationCircleIcon } from './icons';
-import { UserProfile } from '../types';
-import { auth } from '../services/firebase';
+import React from 'react';
+import { ChartBarIcon, ShieldCheckIcon, SunIcon, MoonIcon, InformationCircleIcon } from './icons';
 
 type Theme = 'light' | 'dark';
 
 interface HeaderProps {
-  user: User | null;
-  userProfile: UserProfile | null;
-  onLogin: () => void;
-  onSignUp: () => void;
   theme: Theme;
   setTheme: (theme: Theme) => void;
   onRepoRateClick: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ user, userProfile, onLogin, onSignUp, theme, setTheme, onRepoRateClick }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const handleLogout = () => {
-    auth.signOut();
-    setIsDropdownOpen(false);
-  };
+export const Header: React.FC<HeaderProps> = ({ theme, setTheme, onRepoRateClick }) => {
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
@@ -47,7 +21,7 @@ export const Header: React.FC<HeaderProps> = ({ user, userProfile, onLogin, onSi
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
             <ChartBarIcon className="w-8 h-8 text-emerald-500 mr-3"/>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">Paisabridge</h1>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">NestSaver</h1>
           </div>
           <div className="flex items-center space-x-6">
             <div className="hidden sm:flex items-center space-x-6">
@@ -77,42 +51,6 @@ export const Header: React.FC<HeaderProps> = ({ user, userProfile, onLogin, onSi
             >
                 {theme === 'light' ? <MoonIcon className="w-5 h-5" /> : <SunIcon className="w-5 h-5" />}
             </button>
-
-            {user ? (
-              <div className="relative" ref={dropdownRef}>
-                <button 
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="flex items-center text-slate-700 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors"
-                >
-                  <UserCircleIcon className="w-8 h-8"/>
-                  <ChevronDownIcon className={`w-4 h-4 ml-1 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-md shadow-lg py-1 z-50 border border-slate-200 dark:border-slate-700">
-                    <div className="px-4 py-2 border-b border-slate-200 dark:border-slate-700">
-                        <p className="text-sm text-slate-600 dark:text-slate-400">Signed in as</p>
-                        <p className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{userProfile?.name || user.email}</p>
-                    </div>
-                    <a
-                      href="#"
-                      onClick={handleLogout}
-                      className="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-emerald-500 dark:hover:text-emerald-400"
-                    >
-                      Log Out
-                    </a>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex items-center space-x-2">
-                <button onClick={onLogin} className="text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors px-3 py-1.5 rounded-md">
-                  Log In
-                </button>
-                <button onClick={onSignUp} className="text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-white transition-colors px-3 py-1.5 rounded-md">
-                  Sign Up
-                </button>
-              </div>
-            )}
           </div>
         </div>
       </div>

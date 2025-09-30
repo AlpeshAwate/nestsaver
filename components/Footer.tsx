@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="md:col-span-1 space-y-4">
             <div className="flex items-center">
               <ChartBarIcon className="w-8 h-8 text-emerald-500 mr-3" />
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Paisabridge</h1>
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">NestSaver</h1>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-400">
               Empowering your financial journey from loan management to wealth creation.
@@ -35,8 +35,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200 tracking-wider uppercase">Tools</h3>
               <ul className="mt-4 space-y-2">
                 <li><a href="#" onClick={(e) => handleNavClick(e, 'Simulator')} className="text-base text-slate-600 dark:text-slate-400 hover:text-emerald-500 transition-colors">Simulator</a></li>
-                <li><a href="#" onClick={(e) => handleNavClick(e, 'Balance Transfer')} className="text-base text-slate-600 dark:text-slate-400 hover:text-emerald-500 transition-colors">Balance Transfer</a></li>
-                <li><a href="#" onClick={(e) => handleNavClick(e, 'Fund Explorer')} className="text-base text-slate-600 dark:text-slate-400 hover:text-emerald-500 transition-colors">Fund Explorer</a></li>
               </ul>
             </div>
             <div>
@@ -59,7 +57,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         {/* Bottom Bar */}
         <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-slate-500 dark:text-slate-400">&copy; {new Date().getFullYear()} Paisabridge. All rights reserved.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">&copy; {new Date().getFullYear()} NestSaver. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-slate-500 hover:text-emerald-500" aria-label="X (formerly Twitter)"><XIcon className="h-6 w-6" /></a>
             <a href="#" className="text-slate-500 hover:text-emerald-500" aria-label="Reddit"><RedditIcon className="h-6 w-6" /></a>

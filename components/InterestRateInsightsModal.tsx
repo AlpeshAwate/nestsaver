@@ -244,8 +244,8 @@ const ActionsSection: React.FC<{ onSwitchTab: InterestRateInsightsModalProps['on
              <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-1">Take Control of Your Loan</h3>
              <p className="text-sm text-slate-600 dark:text-slate-400">Here are some steps you can take to lower your interest burden and build wealth faster.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg text-center flex flex-col items-center">
+        <div className="flex justify-center">
+            <div className="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg text-center flex flex-col items-center max-w-sm">
                 <LightBulbIcon className="w-8 h-8 text-emerald-500 mb-2"/>
                 <h4 className="font-bold text-slate-800 dark:text-slate-200">Simulate Savings</h4>
                 <p className="text-xs text-slate-600 dark:text-slate-400 my-2 flex-grow">Use our powerful simulator to see how prepayments and investments can drastically reduce your loan tenure.</p>
@@ -255,19 +255,6 @@ const ActionsSection: React.FC<{ onSwitchTab: InterestRateInsightsModalProps['on
                     Go to Simulator
                 </button>
             </div>
-            <div className="bg-slate-100 dark:bg-slate-700/50 p-4 rounded-lg text-center flex flex-col items-center">
-                <ArrowsRightLeftIcon className="w-8 h-8 text-emerald-500 mb-2"/>
-                <h4 className="font-bold text-slate-800 dark:text-slate-200">Explore Balance Transfer</h4>
-                <p className="text-xs text-slate-600 dark:text-slate-400 my-2 flex-grow">Compare offers from other lenders who might provide a lower interest rate. We'll help you see the real savings.</p>
-                 <button 
-                    onClick={() => { onSwitchTab('Balance Transfer'); onClose(); }}
-                    className="w-full bg-white dark:bg-slate-600 hover:bg-slate-200 dark:hover:bg-slate-500 border border-emerald-500 text-emerald-600 dark:text-emerald-300 font-semibold py-2 px-3 rounded-md transition-colors text-sm mt-2">
-                    Compare Offers
-                </button>
-            </div>
-        </div>
-        <div className="text-xs text-slate-500 dark:text-slate-500 text-center p-4 bg-slate-100 dark:bg-slate-900/40 rounded-md">
-            <strong>Note:</strong> A balance transfer can lead to significant savings, but always consider processing fees and other charges. Our Balance Transfer tool (coming soon) will help you compare options transparently.
         </div>
     </div>
 );

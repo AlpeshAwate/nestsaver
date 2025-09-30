@@ -1,4 +1,5 @@
 
+
 import { GoogleGenAI } from "@google/genai";
 import { SimulationInput } from "../types";
 
@@ -18,7 +19,7 @@ export const generateBankNegotiationScript = async (inputs: SimulationInput): Pr
   const { principal, interestRate, tenureYears } = inputs;
 
   const prompt = `
-    You are an expert financial advisor in India named "Fin-GPT" from Paisabridge.
+    You are an expert financial advisor in India named "Fin-GPT" from NestSaver.
     A user has a home loan with the following details:
     - Loan Amount: ₹${principal.toLocaleString('en-IN')}
     - Interest Rate: ${interestRate}%

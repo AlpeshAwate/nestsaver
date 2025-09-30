@@ -1,25 +1,16 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { SimulationInput, SimulationOutput, OptimizationStrategy } from '../types';
+import { SimulationInput, SimulationOutput } from '../types';
 import { runSimulation, calculateEMI, calculateTenure, calculateInterestRate } from '../services/simulationService';
 import { InputSlider } from './InputSlider';
 import { StrategyCards } from './StrategyCards';
 import { SimulationChart } from './SimulationChart';
 import { AmortizationTable } from './AmortizationTable';
-import { RateReductionCTA } from './RateReductionCTA';
-import { ArrowPathIcon, CalculatorIcon, ExclamationTriangleIcon, CheckCircleIcon, BookmarkIcon, LightBulbIcon, KeyIcon, InformationCircleIcon } from './icons';
-import { OptimizationStrategies, OptimizationResults } from './OptimizationModal';
-// FIX: Changed import to use scoped @firebase/auth package
-import { User } from '@firebase/auth';
+import { ArrowPathIcon, CalculatorIcon, ExclamationTriangleIcon, CheckCircleIcon, InformationCircleIcon } from './icons';
 
 interface SimulatorProps {
   inputs: SimulationInput;
   onInputsChange: (inputs: SimulationInput) => void;
-  onSave: () => void;
   defaultValues: SimulationInput;
-  user: User | null;
-  onLoginRequest: () => void;
-  onRenegotiateRequest: () => void;
-  onBalanceTransferRequest: () => void;
   onTaxInsightsRequest: () => void;
   theme: 'light' | 'dark';
 }
@@ -101,15 +92,12 @@ const validateInputs = (inputs: SimulationInput): Partial<Record<keyof Simulatio
 };
 
 
-export const Simulator: React.FC<SimulatorProps> = ({ inputs, onInputsChange, onSave, defaultValues, user, onLoginRequest, onRenegotiateRequest, onBalanceTransferRequest, onTaxInsightsRequest, theme }) => {
+export const Simulator: React.FC<SimulatorProps> = ({ inputs, onInputsChange, defaultValues, onTaxInsightsRequest, theme }) => {
   const [calculatedField, setCalculatedField] = useState<CalculableField>('monthlyEMI');
   const [justCalculated, setJustCalculated] = useState<string | null>(null);
   const [tenureUnit, setTenureUnit] = useState<'years' | 'months'>('years');
   const [activeSipCategory, setActiveSipCategory] = useState<string | null>(null);
-  const [saveStatus, setSaveStatus] = useState<'idle' | 'saved'>('idle');
   const [errors, setErrors] = useState<Partial<Record<keyof SimulationInput, string>>>({});
-  const [showStrategies, setShowStrategies] = useState(false);
-  const [generatedStrategies, setGeneratedStrategies] = useState<OptimizationStrategy[] | null>(null);
 
   const triggerHighlight = useCallback((field: string) => {
     setJustCalculated(field);
@@ -194,14 +182,6 @@ export const Simulator: React.FC<SimulatorProps> = ({ inputs, onInputsChange, on
   const handleSipCategorySelect = (category: { name: string; rate: number }) => {
     handleInputChange('sipReturnRate', category.rate);
   };
-  
-  const handleSaveClick = () => {
-      onSave();
-      if(user) {
-        setSaveStatus('saved');
-        setTimeout(() => setSaveStatus('idle'), 2000);
-      }
-  }
 
   const simulationResults: SimulationOutput | null = useMemo(() => {
     if (inputs.principal > 0 && inputs.interestRate > 0 && inputs.tenureYears > 0 && inputs.monthlyEMI > 0 && Object.keys(errors).length === 0) {
@@ -217,21 +197,9 @@ export const Simulator: React.FC<SimulatorProps> = ({ inputs, onInputsChange, on
     setErrors({});
   };
 
-  const handleApplyStrategy = (newInputs: Partial<SimulationInput>) => {
-    onInputsChange({ ...inputs, ...newInputs });
-  };
-
   const rateInsight = useMemo(() => {
     if (inputs.interestRate <= 0 || calculatedField === 'interestRate' || errors.interestRate) {
       return null;
-    }
-
-    const potentialReduction = inputs.interestRate - BEST_OFFER_RATE;
-    if (potentialReduction > 0.8) {
-      return {
-        type: 'actionable' as const,
-        reduction: potentialReduction,
-      };
     }
 
     if (inputs.interestRate < RBI_REPO_RATE) {
@@ -279,20 +247,10 @@ export const Simulator: React.FC<SimulatorProps> = ({ inputs, onInputsChange, on
         <div className="lg:col-span-1 bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md space-y-6 border border-slate-200 dark:border-slate-700">
           <div className="flex justify-between items-center gap-2">
              <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center shrink-0"><CalculatorIcon className="w-6 h-6 mr-2 text-emerald-500" /> Loan & Investment</h2>
-          </div>
-          <div className="flex items-center justify-end space-x-2 -mt-4">
-                 <button 
-                    onClick={handleSaveClick} 
-                    className={`text-xs text-slate-600 dark:text-slate-300 hover:text-emerald-500 transition-all duration-200 flex items-center px-2 py-1 rounded-md ${saveStatus === 'saved' ? 'bg-green-100 dark:bg-green-500/20' : 'bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600'}`}
-                    title={user ? "Save this scenario" : "Log in to save scenarios"}
-                >
-                    <BookmarkIcon className="w-4 h-4 mr-1"/> 
-                    {saveStatus === 'saved' ? 'Saved!' : 'Save'}
-                </button>
-                <button onClick={resetDefaults} className="text-xs text-slate-600 dark:text-slate-300 hover:text-emerald-500 transition flex items-center">
+             <button onClick={resetDefaults} className="text-xs text-slate-600 dark:text-slate-300 hover:text-emerald-500 transition flex items-center">
                     <ArrowPathIcon className="w-4 h-4 mr-1"/> Reset
-                </button>
-            </div>
+            </button>
+          </div>
           
           <InputSlider label="Loan Amount (₹)" value={inputs.principal} onChange={(v) => handleInputChange('principal', v)} min={100000} max={20000000} step={100000} format="currency" error={errors.principal} />
           
@@ -338,16 +296,7 @@ export const Simulator: React.FC<SimulatorProps> = ({ inputs, onInputsChange, on
               placeholder="Enter EMI"
               error={errors.monthlyEMI}
             />
-            
-            {rateInsight?.type === 'actionable' && (
-                <RateReductionCTA
-                    rateReduction={rateInsight.reduction}
-                    user={user}
-                    onLoginRequest={onLoginRequest}
-                    onRenegotiateRequest={onRenegotiateRequest}
-                    onBalanceTransferRequest={onBalanceTransferRequest}
-                />
-            )}
+
             {rateInsight && (rateInsight.type === 'error' || rateInsight.type === 'warning' || rateInsight.type === 'success') && (
                 <div className={`p-2.5 rounded-md text-xs flex items-start ${rateInsight.className}`}>
                     {rateInsight.icon}
@@ -403,43 +352,6 @@ export const Simulator: React.FC<SimulatorProps> = ({ inputs, onInputsChange, on
           </div>
 
           <InputSlider label="Inflation Rate (%)" value={inputs.inflationRate} onChange={(v) => handleInputChange('inflationRate', v)} min={1} max={10} step={0.1} format="percent" error={errors.inflationRate} />
-          
-          <div className="pt-4">
-              {user ? (
-                <button
-                    onClick={() => {
-                        setShowStrategies(prev => !prev);
-                        if (showStrategies) {
-                            setGeneratedStrategies(null); // Clear results when hiding
-                        }
-                    }}
-                    disabled={Object.keys(errors).length > 0 || !simulationResults}
-                    className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-full flex items-center justify-center transition-all duration-300 text-lg shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
-                    title="Get optimized strategies"
-                >
-                    <LightBulbIcon className="w-6 h-6 mr-2" />
-                    {showStrategies ? 'Hide Optimization Plan' : 'Optimize My Plan'}
-                </button>
-              ) : (
-                <div className="bg-slate-100 dark:bg-slate-900/50 p-4 rounded-lg text-center border border-slate-200 dark:border-slate-700">
-                    <p className="text-sm text-slate-700 dark:text-slate-300 mb-3">Log in to unlock personalized strategies and optimize your financial plan.</p>
-                    <button
-                        onClick={onLoginRequest}
-                        className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 px-4 rounded-md transition flex items-center justify-center"
-                    >
-                        <KeyIcon className="w-4 h-4 mr-2"/>
-                        Log In to Optimize
-                    </button>
-                </div>
-              )}
-          </div>
-          
-          {user && showStrategies && simulationResults && (
-            <OptimizationStrategies
-                baseInputs={inputs}
-                onStrategiesGenerated={setGeneratedStrategies}
-            />
-          )}
         </div>
 
         {/* Right column with Chart, Strategy Cards, and Amortization Table */}
@@ -452,12 +364,6 @@ export const Simulator: React.FC<SimulatorProps> = ({ inputs, onInputsChange, on
                         loanFreeMonth={simulationResults.summary.loanFreeMonth}
                     />
                     <StrategyCards summary={simulationResults.summary} />
-                    {generatedStrategies && (
-                        <OptimizationResults 
-                            strategies={generatedStrategies}
-                            onApplyStrategy={handleApplyStrategy}
-                        />
-                    )}
                     <AmortizationTable data={simulationResults.amortizationData} />
                 </>
             ) : (

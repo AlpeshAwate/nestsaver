@@ -11,7 +11,7 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
             <div className="text-center mb-10">
                 <ChartBarIcon className="w-16 h-16 mx-auto text-emerald-500 mb-4" />
                 <h1 className="text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-                    Meet Paisabridge
+                    Meet NestSaver
                 </h1>
                 <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
                     Your partner in transforming debt into a bridge towards financial freedom.
@@ -27,11 +27,8 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
                     <p className="mb-4">
                         At our core, we are driven by a single, powerful mission: <strong>to help you clear your loans early.</strong> We believe that a loan shouldn't be a lifelong burden, but a temporary stepping stone. For too long, managing a loan has been a passive, often confusing, process. We're here to change that.
                     </p>
-                    <p className="mb-4">
-                        We started by building powerful, intuitive tools to give you clarity. Our <span className="font-semibold text-emerald-600 dark:text-emerald-400">real-time simulator</span> lets you see the future, showing you exactly how small changes like prepayments or investments can shave years off your loan and save you lakhs in interest. Our <span className="font-semibold text-emerald-600 dark:text-emerald-400">Fin-GPT negotiation scripts</span> empower you to have confident conversations with your bank.
-                    </p>
                     <p>
-                        But that's just the beginning. We're evolving Paisabridge from a set of tools into your personal <span className="font-semibold text-emerald-600 dark:text-emerald-400">financial co-pilot</span>. We're leveraging the power of AI to bring you proactive, intelligent features that actively look for opportunities to help you. Imagine an assistant that finds the perfect moment to suggest a prepayment after you receive a bonus, or a safety net that protects you from EMI bounces during a tough month. This is the next level—and we're building it for you.
+                        We started by building powerful, intuitive tools to give you clarity. Our <span className="font-semibold text-emerald-600 dark:text-emerald-400">real-time simulator</span> lets you see the future, showing you exactly how small changes like prepayments or investments can shave years off your loan and save you lakhs in interest. We're focused on providing the best simulation experience to empower your financial decisions.
                     </p>
                 </section>
 

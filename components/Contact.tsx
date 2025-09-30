@@ -6,19 +6,19 @@ export const Contact: React.FC = () => {
         {
             title: 'General Inquiries',
             description: 'For any general questions, feedback, or partnership opportunities, please reach out to our main team.',
-            email: 'contact@paisabridge.com',
+            email: 'contact@nestsaver.com',
             icon: <PaperAirplaneIcon className="w-6 h-6 mr-3" />
         },
         {
             title: 'Careers',
             description: 'Interested in joining our mission? We\'d love to hear from you. Send us your resume and tell us about yourself.',
-            email: 'careers@paisabridge.com',
+            email: 'careers@nestsaver.com',
             icon: <BriefcaseIcon className="w-6 h-6 mr-3" />
         },
         {
             title: 'Privacy & Legal',
             description: 'For questions regarding our Privacy Policy, Terms of Service, or any other legal matters.',
-            email: 'legal@paisabridge.com',
+            email: 'legal@nestsaver.com',
             icon: <ShieldCheckIcon className="w-6 h-6 mr-3" />
         }
     ];

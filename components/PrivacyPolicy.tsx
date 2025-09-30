@@ -15,7 +15,7 @@ export const PrivacyPolicy: React.FC = () => {
             </div>
 
             <div className="prose prose-slate dark:prose-invert max-w-none space-y-6 text-slate-700 dark:text-slate-300">
-                <p>Welcome to Paisabridge. We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our application.</p>
+                <p>Welcome to NestSaver. We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our application.</p>
                 
                 <section>
                     <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200">Information We Collect</h2>
@@ -55,7 +55,7 @@ export const PrivacyPolicy: React.FC = () => {
 
                 <section>
                     <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200">Contact Us</h2>
-                    <p>If you have questions or comments about this Privacy Policy, please contact us at: <a href="mailto:privacy@paisabridge.com" className="text-emerald-600 dark:text-emerald-400 hover:underline">privacy@paisabridge.com</a></p>
+                    <p>If you have questions or comments about this Privacy Policy, please contact us at: <a href="mailto:privacy@nestsaver.com" className="text-emerald-600 dark:text-emerald-400 hover:underline">privacy@nestsaver.com</a></p>
                 </section>
             </div>
         </div>

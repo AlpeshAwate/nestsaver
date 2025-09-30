@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 // FIX: Changed import to use scoped @firebase/auth package
 import { 
@@ -92,7 +93,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ mode: initialMode, onClose
         onClick={e => e.stopPropagation()}
       >
         <div className="p-5 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">Welcome to Paisabridge</h2>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">Welcome to NestSaver</h2>
             <button onClick={onClose} className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors">
                 <XMarkIcon className="w-6 h-6" />
             </button>
@@ -134,17 +135,4 @@ export const AuthModal: React.FC<AuthModalProps> = ({ mode: initialMode, onClose
           </div>
           <div>
              <label className="text-sm font-medium text-slate-700 dark:text-slate-300 block mb-1.5" htmlFor="password">Password</label>
-             <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} required className="w-full bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md py-2 px-3 text-slate-900 dark:text-slate-100 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" />
-          </div>
-          <button 
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 px-4 rounded-md transition flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isLoading ? <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div> : (activeTab === 'login' ? 'Log In' : 'Create Account')}
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-};
+             <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} required className="w-full bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-md py-2 px-3 text-slate-900 dark
