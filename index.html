@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paisabridge - Loan & Wealth Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    </script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class', // Enable class-based dark mode
+        theme: {
+          extend: {
+            colors: {
+              // The user asked to remove the blue/orange theme.
+              // We will use standard tailwind colors like emerald and slate.
+            },
+            keyframes: {
+              highlight: {
+                '0%': { backgroundColor: 'rgba(16, 185, 129, 0.2)' }, // emerald-500
+                '100%': { backgroundColor: 'transparent' },
+              },
+            },
+            animation: {
+              highlight: 'highlight 1.2s ease-out',
+            },
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react/jsx-runtime": "https://aistudiocdn.com/react@^19.1.1/jsx-runtime",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.21.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.2.1",
+    "firebase/app": "https://aistudiocdn.com/firebase@^10.12.4/app",
+    "firebase/auth": "https://aistudiocdn.com/firebase@^10.12.4/auth",
+    "firebase/firestore": "https://aistudiocdn.com/firebase@^10.12.4/firestore",
+    "firebase/": "https://aistudiocdn.com/firebase@^12.3.0/",
+    "@firebase/app": "https://aistudiocdn.com/@firebase/app@^0.14.3",
+    "@firebase/firestore": "https://aistudiocdn.com/@firebase/firestore@^4.9.2",
+    "@firebase/auth": "https://aistudiocdn.com/@firebase/auth@^1.11.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
